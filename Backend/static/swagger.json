@@ -1,0 +1,452 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "GetFitGo API",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "Register/Login",
+      "description": "Login and register APIs"
+    },
+    {
+      "name": "Routine",
+      "description": "Routine APIs"
+    },
+    {
+      "name": "Exercise",
+      "description": "Exercise APIs"
+    }
+  ],
+  "paths": {
+    "/": {
+      "get": {
+        "description": "Returns message showing app is up",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/data": {
+      "post": {
+        "description": "Grants access to an user",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access data",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User granted access"
+          },
+          "400": {
+            "description": "Invalid request data"
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Register/Login"
+        ],
+        "description": "Returns if the login is correct",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access data",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          }
+        }
+      }
+    },
+    "/routine": {
+      "get": {
+        "summary": "Get routine",
+        "parameters": [
+          {
+            "name": "trainerEmail",
+            "in": "query",
+            "description": "Trainer email",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "routine": {
+                    "id": 1,
+                    "name": "Example Routine",
+                    "description": "Routine description"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create routine",
+        "parameters": [
+          {
+            "name": "Routine",
+            "in": "body",
+            "description": "Routine details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Routine"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully created routine"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete routine",
+        "parameters": [
+          {
+            "name": "routineId",
+            "in": "query",
+            "description": "Routine ID",
+            "required": true,
+            "schema": {
+              "type": "integereger"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully deleted routine"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-exercise": {
+      "post": {
+        "summary": "Add routine exercise",
+        "parameters": [
+          {
+            "name": "Exercise List",
+            "in": "body",
+            "description": "List of exercises",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineExerciseList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully added exercise to routine"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete routine exercise",
+        "parameters": [
+          {
+            "name": "routineId",
+            "in": "body",
+            "description": "Routine ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineExerciseId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully removed exercise from routine"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-rep": {
+      "post": {
+        "summary": "Update routine rep",
+        "parameters": [
+          {
+            "name": "Routine exercise",
+            "in": "body",
+            "description": "Routine ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineExercise"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully updated exercise reps"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-assign": {
+      "post": {
+        "summary": "Assign routine",
+        "parameters": [
+          {
+            "name": "trainerEmail",
+            "in": "body",
+            "description": "Trainer email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineAssing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully assigned routine to user"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-unassign": {
+      "delete": {
+        "summary": "Unassign routine",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID",
+            "required": true,
+            "schema": {
+              "type": "integereger"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully unassigned routine"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercise": {
+      "post": {
+        "summary": "Get exercises based on criteria",
+        "parameters": [
+          {
+              "name": "Exercise",
+              "in": "body",
+              "description": "Exercise details",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Exercise"
+              }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "$ref": "#/definitions/Exercise"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AccessData": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "server": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "Routine": {
+      "type": "object",
+      "properties": {
+        "routineName": {
+          "type": "string"
+        },
+        "routineDescription": {
+          "type": "string"
+        },
+        "trainerEmail": {
+          "type": "string"
+        }
+      }
+    },
+    "RoutineExerciseList": {
+      "type": "object",
+      "properties": {
+        "exercises": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        },
+        "routineId": {
+          "type": "integer"
+        }
+      }
+    },
+    "RoutineExerciseId": {
+      "type": "object",
+      "properties": {
+        "routineId": {
+          "type": "integer"
+        },
+        "exerciseId": {
+          "type": "integer"
+        }
+      }
+    },
+    "RoutineExercise": {
+      "type": "object",
+      "properties": {
+        "routineId": {
+          "type": "integer"
+        },
+        "exerciseId": {
+          "type": "integer"
+        },
+        "reps": {
+          "type": "integer"
+        }
+      }
+    },
+    "RoutineAssing": {
+      "type": "object",
+      "properties": {
+        "trainerEmail": {
+          "type": "string"
+        },
+        "clientEmail": {
+          "type": "string"
+        },
+        "routines": {
+          "type": "array",
+          "items": {
+            "type": "integer"
+          }
+        }
+      }
+    },
+    "Exercise": {
+      "type": "object",
+      "properties": {
+        "exercise_id": {
+          "type": "integer"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "body_part": {
+          "type": "string"
+        },
+        "equipment": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
