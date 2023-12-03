@@ -16,48 +16,314 @@
     {
       "name": "Exercise",
       "description": "Exercise APIs"
+    },
+    {
+      "name": "Diet",
+      "description": "Diet APIs"
     }
   ],
   "paths": {
-    "/": {
+    "/routine": {
       "get": {
-        "description": "Returns message showing app is up",
-        "produces": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful operation"
-          }
-        }
-      }
-    },
-    "/data": {
-      "post": {
-        "description": "Grants access to an user",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Routine"],
+        "summary": "Get routine",
         "parameters": [
           {
-            "name": "access data",
-            "in": "body",
-            "description": "JSON data for the api",
+            "name": "trainerEmail",
+            "in": "query",
+            "description": "Trainer email",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/Login"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "200": {
-            "description": "User granted access"
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "routine": {
+                    "id": 1,
+                    "name": "Example Routine",
+                    "description": "Routine description"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": ["Routine"],
+        "summary": "Create routine",
+        "parameters": [
+          {
+            "name": "Routine",
+            "in": "body",
+            "description": "Routine details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Routine"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully created routine"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Routine"],
+        "summary": "Delete routine",
+        "parameters": [
+          {
+            "name": "routineId",
+            "in": "query",
+            "description": "Routine ID",
+            "required": true,
+            "schema": {
+              "type": "integereger"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully deleted routine"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-exercise": {
+      "post": {
+        "tags": ["Routine"],
+        "summary": "Add routine exercise",
+        "parameters": [
+          {
+            "name": "Exercise List",
+            "in": "body",
+            "description": "List of exercises",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineExerciseList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully added exercise to routine"
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": ["Routine"],
+        "summary": "Delete routine exercise",
+        "parameters": [
+          {
+            "name": "routineId",
+            "in": "body",
+            "description": "Routine ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineExerciseId"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully removed exercise from routine"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-rep": {
+      "post": {
+        "tags": ["Routine"],
+        "summary": "Update routine rep",
+        "parameters": [
+          {
+            "name": "Routine exercise",
+            "in": "body",
+            "description": "Routine ID",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineExercise"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully updated exercise reps"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-assign": {
+      "post": {
+        "tags": ["Routine"],
+        "summary": "Assign routine",
+        "parameters": [
+          {
+            "name": "trainerEmail",
+            "in": "body",
+            "description": "Trainer email",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoutineAssing"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully assigned routine to user"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/routine-unassign": {
+      "delete": {
+        "tags": ["Routine"],
+        "summary": "Unassign routine",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "ID",
+            "required": true,
+            "schema": {
+              "type": "integereger"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": "Successfully unassigned routine"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/exercise": {
+      "post": {
+        "tags": ["Exercise"],
+        "summary": "Get exercises based on criteria",
+        "parameters": [
+          {
+              "name": "Exercise",
+              "in": "body",
+              "description": "Exercise details",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/Exercise"
+              }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "example": {
+                  "$ref": "#/definitions/Exercise"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/register-trainer": {
+      "post": {
+        "tags": ["Register/Login"],
+        "summary": "Register a Trainer",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Trainer",
+            "in": "body",
+            "description": "Trainer details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Trainer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trainer created successfully"
           },
           "400": {
-            "description": "Invalid request data"
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Failed to create trainer"
+          }
+        }
+      }
+    },
+    "/register-client": {
+      "post": {
+        "tags": ["Register/Login"],
+        "summary": "Register a Client",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
+        "parameters": [
+          {
+            "name": "Client",
+            "in": "body",
+            "description": "Client details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Client"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client created successfully"
+          },
+          "400": {
+            "description": "Bad request"
+          },
+          "500": {
+            "description": "Failed to create client"
           }
         }
       }
@@ -92,238 +358,165 @@
         }
       }
     },
-    "/routine": {
+    "/diet": {
       "get": {
-        "summary": "Get routine",
+        "tags": ["Diet"],
+        "summary": "Get Diets",
         "parameters": [
           {
-            "name": "trainerEmail",
+            "name": "dietType",
             "in": "query",
-            "description": "Trainer email",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
+            "description": "Type of diet",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": {
-                  "routine": {
-                    "id": 1,
-                    "name": "Example Routine",
-                    "description": "Routine description"
-                  }
-                }
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Diet"
               }
             }
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "summary": "Create routine",
+        "tags": ["Diet"],
+        "summary": "Create or Edit Diet",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
-            "name": "Routine",
+            "name": "dietId",
             "in": "body",
-            "description": "Routine details",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Routine"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully created routine"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete routine",
-        "parameters": [
-          {
-            "name": "routineId",
-            "in": "query",
-            "description": "Routine ID",
-            "required": true,
-            "schema": {
-              "type": "integereger"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully deleted routine"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/routine-exercise": {
-      "post": {
-        "summary": "Add routine exercise",
-        "parameters": [
-          {
-            "name": "Exercise List",
-            "in": "body",
-            "description": "List of exercises",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoutineExerciseList"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully added exercise to routine"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "Delete routine exercise",
-        "parameters": [
-          {
-            "name": "routineId",
-            "in": "body",
-            "description": "Routine ID",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoutineExerciseId"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully removed exercise from routine"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/routine-rep": {
-      "post": {
-        "summary": "Update routine rep",
-        "parameters": [
-          {
-            "name": "Routine exercise",
-            "in": "body",
-            "description": "Routine ID",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoutineExercise"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully updated exercise reps"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/routine-assign": {
-      "post": {
-        "summary": "Assign routine",
-        "parameters": [
+            "description": "ID of the diet (for editing, optional)",
+            "required": false,
+            "type": "integer"
+          },
           {
             "name": "trainerEmail",
             "in": "body",
-            "description": "Trainer email",
+            "description": "Trainer's email",
             "required": true,
-            "schema": {
-              "$ref": "#/definitions/RoutineAssing"
-            }
+            "type": "string"
+          },
+          {
+            "name": "dietType",
+            "in": "body",
+            "description": "Type of diet",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "breakfast",
+            "in": "body",
+            "description": "Breakfast details",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "lunch",
+            "in": "body",
+            "description": "Lunch details",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "dinner",
+            "in": "body",
+            "description": "Dinner details",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "instruction",
+            "in": "body",
+            "description": "Diet instructions",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully assigned routine to user"
-              }
-            }
+            "description": "Diet created/updated successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
-      }
-    },
-    "/routine-unassign": {
+      },
       "delete": {
-        "summary": "Unassign routine",
+        "tags": ["Diet"],
+        "summary": "Delete Diet",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
-            "name": "id",
-            "in": "query",
-            "description": "ID",
+            "name": "dietId",
+            "in": "body",
+            "description": "ID of the diet to delete",
             "required": true,
-            "schema": {
-              "type": "integereger"
-            }
+            "type": "integer"
+          },
+          {
+            "name": "trainerEmail",
+            "in": "body",
+            "description": "Trainer's email",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": "Successfully unassigned routine"
-              }
-            }
+            "description": "Diet deleted successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
     },
-    "/exercise": {
+    "/assign-diet": {
       "post": {
-        "summary": "Get exercises based on criteria",
+        "tags": ["Diet"],
+        "summary": "Assign Diet to User",
+        "consumes": ["application/json"],
+        "produces": ["application/json"],
         "parameters": [
           {
-              "name": "Exercise",
-              "in": "body",
-              "description": "Exercise details",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Exercise"
-              }
+            "name": "dietName",
+            "in": "body",
+            "description": "Name of the diet to assign",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "trainerEmail",
+            "in": "body",
+            "description": "Trainer's email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "clientEmail",
+            "in": "body",
+            "description": "Client's email",
+            "required": true,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
-            "content": {
-              "application/json": {
-                "example": {
-                  "$ref": "#/definitions/Exercise"
-                }
-              }
-            }
+            "description": "Diet assigned to user successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
           }
         }
       }
@@ -445,6 +638,161 @@
         },
         "level": {
           "type": "string"
+        }
+      }
+    },
+    "Trainer": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Trainer's username"
+        },
+        "password": {
+          "type": "string",
+          "description": "Trainer's password"
+        },
+        "email": {
+          "type": "string",
+          "description": "Trainer's email address"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Trainer's first name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Trainer's last name"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Trainer's gender"
+        },
+        "state": {
+          "type": "string",
+          "description": "Trainer's state"
+        },
+        "city": {
+          "type": "string",
+          "description": "Trainer's city"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "Trainer's mobile number"
+        },
+        "aboutMe": {
+          "type": "string",
+          "description": "Trainer's about me information"
+        }
+      }
+    },
+    "Client": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string",
+          "description": "Client's username"
+        },
+        "password": {
+          "type": "string",
+          "description": "Client's password"
+        },
+        "email": {
+          "type": "string",
+          "description": "Client's email address"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Client's first name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Client's last name"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Client's gender"
+        },
+        "streetNo": {
+          "type": "string",
+          "description": "Client's street number"
+        },
+        "streetName": {
+          "type": "string",
+          "description": "Client's street name"
+        },
+        "city": {
+          "type": "string",
+          "description": "Client's city"
+        },
+        "state": {
+          "type": "string",
+          "description": "Client's state"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "Client's mobile number"
+        },
+        "height": {
+          "type": "number",
+          "description": "Client's height"
+        },
+        "weight": {
+          "type": "number",
+          "description": "Client's weight"
+        },
+        "bodyType": {
+          "type": "string",
+          "description": "Client's body type"
+        },
+        "bmi": {
+          "type": "number",
+          "description": "Client's BMI"
+        },
+        "targetWeight": {
+          "type": "number",
+          "description": "Client's target weight"
+        },
+        "level": {
+          "type": "number",
+          "description": "Client's level"
+        },
+        "aboutMe": {
+          "type": "string",
+          "description": "Client's about me information"
+        }
+      }
+    },
+    "Diet": {
+      "type": "object",
+      "properties": {
+        "dietId": {
+          "type": "integer",
+          "description": "ID of the diet"
+        },
+        "dietName": {
+          "type": "string",
+          "description": "Name of the diet"
+        },
+        "breakfast": {
+          "type": "string",
+          "description": "Details of the breakfast"
+        },
+        "lunch": {
+          "type": "string",
+          "description": "Details of the lunch"
+        },
+        "dinner": {
+          "type": "string",
+          "description": "Details of the dinner"
+        },
+        "instruction": {
+          "type": "string",
+          "description": "Diet instructions"
+        },
+        "trainerEmail": {
+          "type": "string",
+          "description": "Trainer's email"
         }
       }
     }

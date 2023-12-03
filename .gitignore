@@ -5,3 +5,5 @@ Backend/routes/__pycache__/routine.cpython-311.pyc
 Backend/routes/__pycache__/login.cpython-311.pyc
 Backend/__pycache__/app.cpython-311.pyc
 .DS_Store
+Backend/routes/__pycache__/diet.cpython-311.pyc
+Backend/routes/__pycache__/register.cpython-311.pyc

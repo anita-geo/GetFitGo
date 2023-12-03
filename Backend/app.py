@@ -4,6 +4,8 @@ from flask_swagger_ui import get_swaggerui_blueprint
 from routes.exercise import app_exercise
 from routes.login import app_login
 from routes.routine import app_routine
+from routes.register import app_register
+from routes.diet import app_diet
 
 
 SWAGGER_URL="/swagger"
@@ -23,3 +25,5 @@ app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 app.register_blueprint(app_exercise)
 app.register_blueprint(app_routine)
 app.register_blueprint(app_login)
+app.register_blueprint(app_register)
+app.register_blueprint(app_diet)
