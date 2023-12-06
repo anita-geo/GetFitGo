@@ -25,7 +25,7 @@ def get_pending_request():
                 "trainerEmail": request_detail[1],
                 "requestDate": request_detail[2]
             }
-        pending_requests.append(pending_request)
+            pending_requests.append(pending_request)
         cur.close()
         return jsonify(pending_requests)
     except pymysql.MySQLError as e:
@@ -126,7 +126,7 @@ def get_trainer():
                 "email": trainer_detail[6],
                 "aboutMe": trainer_detail[7]
             }
-        trainers.append(pending_request)
+            trainers.append(pending_request)
         return jsonify(trainers)
         
     except Exception as e:
@@ -177,7 +177,7 @@ def get_trainer_clients():
 def update_trainer():
     try:
         _json = request.json
-        _trainerEmail = _json.get('trainerEmail', None)
+        _email = _json.get('email', None)
         _firstName = _json.get('firstName', None)
         _lastName = _json.get('lastName', None)
         _gender = _json.get('gender', None)
@@ -189,12 +189,12 @@ def update_trainer():
         if _firstName.strip() == "":
             return "First name is empty", 400
         
-        if _trainerEmail.strip() == "":
+        if _email.strip() == "":
             return "Trainer email is empty", 400
         
         connection = get_db()
         cur = connection.cursor()
-        cur.callproc('InsertOrUpdateTrainer',(_firstName, _lastName, _gender, _state, _city, _mobileNumber, _trainerEmail, _aboutMe))
+        cur.callproc('InsertOrUpdateTrainer',(_firstName, _lastName, _gender, _state, _city, _mobileNumber, _email, _aboutMe))
         if cur.rowcount > 0:
             return "Trainer updated successfully"
         else:

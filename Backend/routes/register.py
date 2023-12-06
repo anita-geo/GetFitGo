@@ -34,6 +34,7 @@ def register_trainer():
 
         connection = get_db()
         cur = connection.cursor()
+        connection.begin()
         cur.callproc('CreateUser',(_username, _email, _password))
         
         # The create user was successful
@@ -54,6 +55,7 @@ def register_trainer():
         connection.rollback()
         return "Something went wrong", 500
     finally:
+        connection.commit()
         cur.close()
         connection.close()
 
@@ -106,7 +108,7 @@ def register_client():
         
         # The create user was successful
         if cur.rowcount > 0:
-            cur.callproc('InsertUserInfo',(_email, _firstName, _lastName, _gender,_streetNo,_streetName,_city,  _state, _mobileNumber, _height, _weight,_bodyType, _bmi,_targetWeight, _level, _aboutMe))
+            cur.callproc('InsertOrUpdateClient',(_email, _firstName, _lastName, _gender,_streetNo,_streetName,_city,  _state, _mobileNumber, _height, _weight,_bodyType, _bmi,_targetWeight, _level, _aboutMe))
             if cur.rowcount > 0:
                 return "Client created successfully"
             else:
@@ -117,5 +119,6 @@ def register_client():
         print(e)
         return "Something went wrong", 500
     finally:
+        connection.commit()
         cur.close()
         connection.close()
