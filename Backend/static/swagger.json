@@ -33,7 +33,9 @@
   "paths": {
     "/routine": {
       "get": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Get routine",
         "parameters": [
           {
@@ -64,7 +66,9 @@
         }
       },
       "post": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Create routine",
         "parameters": [
           {
@@ -89,7 +93,9 @@
         }
       },
       "delete": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Delete routine",
         "parameters": [
           {
@@ -116,7 +122,9 @@
     },
     "/routine-exercise": {
       "post": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Add routine exercise",
         "parameters": [
           {
@@ -141,7 +149,9 @@
         }
       },
       "delete": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Delete routine exercise",
         "parameters": [
           {
@@ -168,7 +178,9 @@
     },
     "/routine-rep": {
       "post": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Update routine rep",
         "parameters": [
           {
@@ -195,7 +207,9 @@
     },
     "/routine-assign": {
       "post": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Assign routine",
         "parameters": [
           {
@@ -222,7 +236,9 @@
     },
     "/routine-unassign": {
       "delete": {
-        "tags": ["Routine"],
+        "tags": [
+          "Routine"
+        ],
         "summary": "Unassign routine",
         "parameters": [
           {
@@ -249,17 +265,19 @@
     },
     "/exercise": {
       "post": {
-        "tags": ["Exercise"],
+        "tags": [
+          "Exercise"
+        ],
         "summary": "Get exercises based on criteria",
         "parameters": [
           {
-              "name": "Exercise",
-              "in": "body",
-              "description": "Exercise details",
-              "required": true,
-              "schema": {
-                "$ref": "#/definitions/Exercise"
-              }
+            "name": "Exercise",
+            "in": "body",
+            "description": "Exercise details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Exercise"
+            }
           }
         ],
         "responses": {
@@ -278,10 +296,16 @@
     },
     "/register-trainer": {
       "post": {
-        "tags": ["Register/Login"],
+        "tags": [
+          "Register/Login"
+        ],
         "summary": "Register a Trainer",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "Trainer",
@@ -308,10 +332,16 @@
     },
     "/register-client": {
       "post": {
-        "tags": ["Register/Login"],
+        "tags": [
+          "Register/Login"
+        ],
         "summary": "Register a Client",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "Client",
@@ -368,7 +398,9 @@
     },
     "/diet": {
       "get": {
-        "tags": ["Diet"],
+        "tags": [
+          "Diet"
+        ],
         "summary": "Get Diets",
         "parameters": [
           {
@@ -395,10 +427,16 @@
         }
       },
       "post": {
-        "tags": ["Diet"],
+        "tags": [
+          "Diet"
+        ],
         "summary": "Create or Edit Diet",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "dietId",
@@ -460,10 +498,16 @@
         }
       },
       "delete": {
-        "tags": ["Diet"],
+        "tags": [
+          "Diet"
+        ],
         "summary": "Delete Diet",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "dietId",
@@ -492,10 +536,16 @@
     },
     "/assign-diet": {
       "post": {
-        "tags": ["Diet"],
+        "tags": [
+          "Diet"
+        ],
         "summary": "Assign Diet to User",
-        "consumes": ["application/json"],
-        "produces": ["application/json"],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
         "parameters": [
           {
             "name": "dietName",
@@ -709,6 +759,233 @@
               "type": "array",
               "items": {
                 "$ref": "#/definitions/TrainerClient"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/view-client": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Get client information",
+        "parameters": [
+          {
+            "name": "clientEmail",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "The email of the client"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client information",
+            "schema": {
+              "$ref": "#/definitions/ClientInfo"
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/update-client": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Update client profile",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UpdateClientRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Client updated successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/view-workouts": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Get client workouts",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/GetWorkoutsRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of client workouts",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WorkoutEntry"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/log-workout": {
+      "post": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Log client workout",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/LogWorkoutRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workout logged successfully"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/delete-workout": {
+      "delete": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Delete client workout log",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": true,
+            "type": "integer",
+            "description": "Workout log ID"
+          },
+          {
+            "name": "clientEmail",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Client email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workout log deleted"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/view-assigned-routine": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "Get assigned routine",
+        "parameters": [
+          {
+            "name": "clientEmail",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Client email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of assigned routines",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AssignedRoutine"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/view-assigned-diet": {
+      "get": {
+        "tags": [
+          "Client"
+        ],
+        "summary": "View assigned diet",
+        "parameters": [
+          {
+            "name": "clientEmail",
+            "in": "query",
+            "required": true,
+            "type": "string",
+            "description": "Client email"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of assigned diets",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/AssignedDiet"
               }
             }
           },
@@ -1127,6 +1404,246 @@
         "trainerEmail": {
           "type": "string",
           "description": "Trainer's email"
+        }
+      }
+    },
+    "ClientInfo": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "weight": {
+          "type": "integer"
+        },
+        "targetWeight": {
+          "type": "integer"
+        },
+        "bodyType": {
+          "type": "string"
+        },
+        "aboutMe": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        },
+        "trainerEmail": {
+          "type": "string"
+        },
+        "bodyParts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "equipments": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "dietType": {
+          "type": "string"
+        },
+        "routines": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "UpdateClientRequest": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "streetNo": {
+          "type": "string"
+        },
+        "streetName": {
+          "type": "string"
+        },
+        "city": {
+          "type": "string"
+        },
+        "state": {
+          "type": "string"
+        },
+        "mobileNumber": {
+          "type": "string"
+        },
+        "height": {
+          "type": "integer"
+        },
+        "weight": {
+          "type": "integer"
+        },
+        "bodyType": {
+          "type": "string"
+        },
+        "targetWeight": {
+          "type": "integer"
+        },
+        "level": {
+          "type": "string"
+        },
+        "aboutMe": {
+          "type": "string"
+        }
+      }
+    },
+    "GetWorkoutsRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "logDate": {
+          "type": "string"
+        }
+      }
+    },
+    "WorkoutEntry": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "exercise_id": {
+          "type": "integer"
+        },
+        "email": {
+          "type": "string"
+        },
+        "reps": {
+          "type": "integer"
+        },
+        "date": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "body_part": {
+          "type": "string"
+        },
+        "equipment": {
+          "type": "string"
+        },
+        "level": {
+          "type": "string"
+        }
+      }
+    },
+    "LogWorkoutRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "exerciseId": {
+          "type": "integer"
+        },
+        "reps": {
+          "type": "integer"
+        }
+      }
+    },
+    "AssignedRoutine": {
+      "type": "object",
+      "properties": {
+        "routine_id": {
+          "type": "integer"
+        },
+        "routine_name": {
+          "type": "string"
+        },
+        "routine_description": {
+          "type": "string"
+        },
+        "exercises": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ExerciseEntry"
+          }
+        }
+      }
+    },
+    "ExerciseEntry": {
+      "type": "object",
+      "properties": {
+        "exercise_id": {
+          "type": "integer"
+        },
+        "exercise_title": {
+          "type": "string"
+        },
+        "exercise_description": {
+          "type": "string"
+        },
+        "reps": {
+          "type": "integer"
+        }
+      }
+    },
+    "ViewAssignedDietRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        }
+      }
+    },
+    "AssignedDiet": {
+      "type": "object",
+      "properties": {
+        "dietId": {
+          "type": "integer"
+        },
+        "dietName": {
+          "type": "string"
+        },
+        "breakfast": {
+          "type": "string"
+        },
+        "lunch": {
+          "type": "string"
+        },
+        "dinner": {
+          "type": "string"
+        },
+        "instruction": {
+          "type": "string"
         }
       }
     }

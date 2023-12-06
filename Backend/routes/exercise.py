@@ -14,7 +14,6 @@ def get_exercise():
     _equipment = _json.get('equipment', None)
     _level = _json.get('level', None)
 
-    
     connection = get_db()
     cur = connection.cursor()
     cur.callproc('FetchExercises',(_id, _title, _description, _type, _body_part, _equipment, _level))
@@ -34,3 +33,37 @@ def get_exercise():
         exercises.append(exercise)
     cur.close()
     return jsonify(exercises)
+
+@app_exercise.route('/filter-values', methods=['GET'])
+def get_filter_values():
+    connection = get_db()
+    try:
+        with connection.cursor() as cursor:
+            cursor.callproc('GetFilterValue', ())
+            
+            result_exercise_type = cursor.fetchall()
+            
+            cursor.nextset()
+            result_body_part = cursor.fetchall()
+            
+            cursor.nextset()
+            result_equipment = cursor.fetchall()
+            
+            cursor.nextset()
+            result_level = cursor.fetchall()
+
+            response_json = {
+                'exerciseType': result_exercise_type,
+                'bodyPart': result_body_part,
+                'equipment': result_equipment,
+                'level': result_level
+            }
+
+            return response_json
+
+    except Exception as e:
+        print(e)
+        return "Failed to retrieve filter values", 500
+
+    finally:
+        connection.close()

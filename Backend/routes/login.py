@@ -23,8 +23,8 @@ def get_login_detail():
         cur.execute("SELECT @_CheckCredentials_2")
         _result = cur.fetchone()[0]
 
-        if _result == 1:
-            return "Successfully logged in"
+        if _result > 0:
+            return str(_result)
         else:
             return "Username and passowrd is invalid", 401
             

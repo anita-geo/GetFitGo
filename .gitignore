@@ -8,3 +8,4 @@ Backend/__pycache__/app.cpython-311.pyc
 Backend/routes/__pycache__/diet.cpython-311.pyc
 Backend/routes/__pycache__/register.cpython-311.pyc
 Backend/routes/__pycache__/trainer.cpython-311.pyc
+Backend/routes/__pycache__/client.cpython-311.pyc
