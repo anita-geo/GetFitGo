@@ -8,6 +8,7 @@ from routes.register import app_register
 from routes.diet import app_diet
 from routes.trainer import app_trainer
 from routes.client import app_client
+from routes.analytics import app_analytics
 
 SWAGGER_URL="/swagger"
 API_URL="/static/swagger.json"
@@ -30,3 +31,4 @@ app.register_blueprint(app_register)
 app.register_blueprint(app_diet)
 app.register_blueprint(app_trainer)
 app.register_blueprint(app_client)
+app.register_blueprint(app_analytics)

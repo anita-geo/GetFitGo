@@ -28,6 +28,10 @@
     {
       "name": "Diet",
       "description": "Diet APIs"
+    },
+    {
+      "name": "Analytics",
+      "description": "Analytics APIs"
     }
   ],
   "paths": {
@@ -1010,6 +1014,41 @@
           },
           "500": {
             "description": "Failed to retrieve filter values"
+          }
+        }
+      }
+    },
+    "/top-exercise": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Get top exercises",
+        "responses": {
+          "200": {
+            "description": "A list of top exercises",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "exercise_name": "Running",
+                    "exercise_count": 20
+                  },
+                  {
+                    "exercise_name": "Weightlifting",
+                    "exercise_count": 15
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "example": "Something went wrong"
+              }
+            }
           }
         }
       }
