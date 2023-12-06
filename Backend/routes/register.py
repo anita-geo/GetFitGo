@@ -38,7 +38,7 @@ def register_trainer():
         
         # The create user was successful
         if cur.rowcount > 0:
-            cur.callproc('InsertTrainer',(_firstName, _lastName, _gender, _state, _city, _mobileNumber, _email, _aboutMe))
+            cur.callproc('InsertOrUpdateTrainer',(_firstName, _lastName, _gender, _state, _city, _mobileNumber, _email, _aboutMe))
             if cur.rowcount > 0:
                 return "Trainer created successfully"
             else:
@@ -80,6 +80,8 @@ def register_client():
 
         if (_weight is not None and _height is not None):
             _bmi = (_weight) / ((_height/100) * (_height/100))
+        else:
+            _bmi = None
         
         _targetWeight = _json.get('height', None)
         _level = _json.get('height', None)
@@ -99,6 +101,7 @@ def register_client():
 
         connection = get_db()
         cur = connection.cursor()
+        connection.begin()
         cur.callproc('CreateUser',(_username, _email, _password))
         
         # The create user was successful

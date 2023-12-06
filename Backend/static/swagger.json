@@ -20,6 +20,10 @@
     {
       "name": "Diet",
       "description": "Diet APIs"
+    },
+    {
+      "name": "Trainer",
+      "description": "Trainer APIs"
     }
   ],
   "paths": {
@@ -520,6 +524,204 @@
           }
         }
       }
+    },
+    "/view-pending-request": {
+      "get": {
+        "tags": [
+          "Trainer"
+        ],
+        "summary": "Get Pending Requests",
+        "parameters": [
+          {
+            "name": "trainerEmail",
+            "in": "query",
+            "description": "Trainer's email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TrainingRequest"
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/request-trainer": {
+      "post": {
+        "tags": [
+          "Trainer"
+        ],
+        "summary": "Request Trainer",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access data",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/NewTrainingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Training request created successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/handle-pending-request": {
+      "post": {
+        "tags": [
+          "Trainer"
+        ],
+        "summary": "Handle Pending Request",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access data",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/HandleTrainingRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Training request handled successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/view-trainer": {
+      "get": {
+        "tags": [
+          "Trainer"
+        ],
+        "summary": "View Trainer Details",
+        "parameters": [
+          {
+            "name": "trainerEmail",
+            "in": "query",
+            "description": "Trainer's email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "$ref": "#/definitions/TrainerUpdate"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/update-trainer": {
+      "post": {
+        "tags": [
+          "Trainer"
+        ],
+        "summary": "Update Trainer Details",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "access data",
+            "in": "body",
+            "description": "JSON data for the api",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/TrainerUpdate"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Trainer updated successfully"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/view-trainer-clients": {
+      "get": {
+        "tags": [
+          "Trainer"
+        ],
+        "summary": "View Trainer Clients",
+        "parameters": [
+          {
+            "name": "trainerEmail",
+            "in": "query",
+            "description": "Trainer's email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/TrainerClient"
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -789,6 +991,140 @@
         "instruction": {
           "type": "string",
           "description": "Diet instructions"
+        },
+        "trainerEmail": {
+          "type": "string",
+          "description": "Trainer's email"
+        }
+      }
+    },
+    "TrainingRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string",
+          "description": "Client's email"
+        },
+        "trainerEmail": {
+          "type": "string",
+          "description": "Trainer's email"
+        },
+        "requestDate": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Date of the request"
+        }
+      }
+    },
+    "NewTrainingRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string",
+          "description": "Client's email"
+        },
+        "trainerEmail": {
+          "type": "string",
+          "description": "Trainer's email"
+        }
+      }
+    },
+    "HandleTrainingRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string",
+          "description": "Client's email"
+        },
+        "trainerEmail": {
+          "type": "string",
+          "description": "Trainer's email"
+        },
+        "isAccepted": {
+          "type": "boolean",
+          "description": "Is the request accepted"
+        }
+      }
+    },
+    "TrainerUpdate": {
+      "type": "object",
+      "properties": {
+        "trainerEmail": {
+          "type": "string",
+          "description": "Trainer's email address"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Trainer's first name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Trainer's last name"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Trainer's gender"
+        },
+        "state": {
+          "type": "string",
+          "description": "Trainer's state"
+        },
+        "city": {
+          "type": "string",
+          "description": "Trainer's city"
+        },
+        "mobileNumber": {
+          "type": "string",
+          "description": "Trainer's mobile number"
+        },
+        "aboutMe": {
+          "type": "string",
+          "description": "Trainer's about me information"
+        }
+      }
+    },
+    "TrainerClient": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string",
+          "description": "Client's email"
+        },
+        "firstName": {
+          "type": "string",
+          "description": "Client's first name"
+        },
+        "lastName": {
+          "type": "string",
+          "description": "Client's last name"
+        },
+        "gender": {
+          "type": "string",
+          "description": "Client's gender"
+        },
+        "height": {
+          "type": "number",
+          "description": "Client's height"
+        },
+        "weight": {
+          "type": "number",
+          "description": "Client's weight"
+        },
+        "targetWeight": {
+          "type": "number",
+          "description": "Client's target weight"
+        },
+        "bodyType": {
+          "type": "string",
+          "description": "Client's body type"
+        },
+        "aboutMe": {
+          "type": "string",
+          "description": "Client's about me"
+        },
+        "level": {
+          "type": "string",
+          "description": "Client's fitness level"
         },
         "trainerEmail": {
           "type": "string",
