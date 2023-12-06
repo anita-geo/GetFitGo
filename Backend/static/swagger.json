@@ -997,6 +997,22 @@
           }
         }
       }
+    },
+    "/filter-values": {
+      "get": {
+        "tags": [
+          "Exercise"
+        ],
+        "summary": "Get Exercise Filter Values",
+        "responses": {
+          "200": {
+            "description": "Successful response"
+          },
+          "500": {
+            "description": "Failed to retrieve filter values"
+          }
+        }
+      }
     }
   },
   "definitions": {
