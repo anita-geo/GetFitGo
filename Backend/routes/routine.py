@@ -100,12 +100,10 @@ def create_routine():
 @app_routine.route('/routine', methods=['DELETE'])
 def delete_routine():
     try:
-        _json = request.json
-        _routineId = _json['routineId']
+        _routineId = request.args.get('routineId', None)
     
         connection = get_db()
         cur = connection.cursor()
-        cur = g.connection.get_db().cursor()
 
         sql = 'DELETE FROM routine where routine_id = %s'
         cur.execute(sql, (_routineId))
@@ -117,9 +115,7 @@ def delete_routine():
             return jsonify({"error": "Failed to delete routine"}), 500
         
     except pymysql.MySQLError as e:
-        if e.args[0] == 45000:
-            print("Caught SQLSTATE 45000 error: ", e)
-        return 'Something went wrong', 500
+        return e.args[1], 500
     except Exception as e:
         print(e)
         return "Something went wrong", 500
