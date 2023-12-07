@@ -320,14 +320,13 @@ def add_client_equipment():
         if not _equipment_names:
             return "Equipment names list is empty", 400
         
+        json_data = jsonify(_equipment_names).get_data(as_text=True)
+
         connection = get_db()
         cur = connection.cursor()
-        cur.callproc('InsertClientEquipment',(_clientEmail, _equipment_names))
+        cur.callproc('InsertClientEquipment',(_clientEmail, json_data))
         
-        if cur.rowcount > 0:
-            return "Inserted client equipment"
-        else:
-            return "Failed to insert client equipment", 500
+        return "Inserted client equipment"
 
     except Exception as e:
         print(e)
@@ -378,14 +377,13 @@ def add_client_body_part():
         if not _bodyParts:
             return "Body part names list is empty", 400
         
+        json_data = jsonify(_bodyParts).get_data(as_text=True)
+        
         connection = get_db()
         cur = connection.cursor()
-        cur.callproc('InsertClientTrainingForBodyPart',(_clientEmail, _bodyParts))
+        cur.callproc('InsertClientTrainingForBodyPart',(_clientEmail, json_data))
         
-        if cur.rowcount > 0:
-            return "Inserted client training for body part"
-        else:
-            return "Failed to insert client training for body part", 500
+        return "Inserted client training for body part"
 
     except Exception as e:
         print(e)

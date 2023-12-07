@@ -1026,6 +1026,122 @@
         },
         "operationId": "getDietTypes"
       }
+    },
+    "/add-client-equipment": {
+      "post": {
+        "tags": ["Client"],
+        "summary": "Add client equipment",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "requestBody",
+            "description": "Request body",
+            "schema": {
+              "$ref": "#/definitions/AddClientEquipmentRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inserted client equipment"
+          },
+          "400": {
+            "description": "Client email is empty or Equipment names list is empty"
+          },
+          "500": {
+            "description": "Failed to insert client equipment"
+          }
+        }
+      }
+    },
+    "/delete-client-equipment": {
+      "delete": {
+        "tags": ["Client"],
+        "summary": "Delete client equipment",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "requestBody",
+            "description": "Request body",
+            "schema": {
+              "$ref": "#/definitions/DeleteClientEquipmentRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted client equipment"
+          },
+          "400": {
+            "description": "Client email is empty or Equipment is empty"
+          },
+          "500": {
+            "description": "Failed to delete client equipment"
+          }
+        }
+      }
+    },
+    "/add-client-body-part": {
+      "post": {
+        "tags": ["Client"],
+        "summary": "Add client body part",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "requestBody",
+            "description": "Request body",
+            "schema": {
+              "$ref": "#/definitions/AddClientBodyPartRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Inserted client training for body part"
+          },
+          "400": {
+            "description": "Client email is empty or Body part names list is empty"
+          },
+          "500": {
+            "description": "Failed to insert client training for body part"
+          }
+        }
+      }
+    },
+    "/delete-client-body-part": {
+      "delete": {
+        "tags": ["Client"],
+        "summary": "Delete client body part",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "requestBody",
+            "description": "Request body",
+            "schema": {
+              "$ref": "#/definitions/DeleteClientBodyPartRequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted client body part"
+          },
+          "400": {
+            "description": "Client email is empty or Body part is empty"
+          },
+          "500": {
+            "description": "Failed to delete client body part"
+          }
+        }
+      }
     }
   },
   "definitions": {
@@ -1729,6 +1845,60 @@
         }
       },
       "required": ["dietName", "trainerEmail", "clientEmail"]
+    },
+    "AddClientEquipmentRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "equipmentNames": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["clientEmail"]
+    },
+    "DeleteClientEquipmentRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "equipment": {
+          "type": "string"
+        }
+      },
+      "required": ["clientEmail", "equipment"]
+    },
+    "AddClientBodyPartRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "bodyParts": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": ["clientEmail"]
+    },
+    "DeleteClientBodyPartRequest": {
+      "type": "object",
+      "properties": {
+        "clientEmail": {
+          "type": "string"
+        },
+        "bodyPart": {
+          "type": "string"
+        }
+      },
+      "required": ["clientEmail", "bodyPart"]
     }
   }
 }
