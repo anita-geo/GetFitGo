@@ -146,7 +146,7 @@ def get_trainer_clients():
         
         connection = get_db()
         cur = connection.cursor()
-        cur.callproc('GetClientInfo',(None, _trainerEmail,))
+        cur.callproc('GetClientInfo',('', _trainerEmail))
         
         data = cur.fetchall() 
         trainerClients = []
@@ -162,9 +162,9 @@ def get_trainer_clients():
                 "bodyType": detail[7],
                 "aboutMe": detail[8],
                 "level": detail[9],
-                "trainerEmail": detail[10],
+                "trainerEmail": detail[10]
             }
-        trainerClients.append(client)
+            trainerClients.append(client)
         return jsonify(trainerClients)
     except Exception as e:
         print(e)
