@@ -402,94 +402,40 @@
     },
     "/diet": {
       "get": {
-        "tags": [
-          "Diet"
-        ],
-        "summary": "Get Diets",
+        "tags": ["Diet"],
+        "summary": "Get diets",
         "parameters": [
           {
             "name": "dietType",
             "in": "query",
-            "description": "Type of diet",
-            "required": false,
-            "type": "string"
+            "type": "string",
+            "description": "Filter diets by type"
           }
         ],
         "responses": {
           "200": {
-            "description": "Successful response",
+            "description": "Successful operation",
             "schema": {
               "type": "array",
               "items": {
                 "$ref": "#/definitions/Diet"
               }
             }
-          },
-          "500": {
-            "description": "Internal Server Error"
           }
         }
       },
       "post": {
-        "tags": [
-          "Diet"
-        ],
-        "summary": "Create or Edit Diet",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Diet"],
+        "summary": "Create or edit a diet",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
         "parameters": [
           {
-            "name": "dietId",
             "in": "body",
-            "description": "ID of the diet (for editing, optional)",
-            "required": false,
-            "type": "integer"
-          },
-          {
-            "name": "trainerEmail",
-            "in": "body",
-            "description": "Trainer's email",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "dietType",
-            "in": "body",
-            "description": "Type of diet",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "breakfast",
-            "in": "body",
-            "description": "Breakfast details",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "lunch",
-            "in": "body",
-            "description": "Lunch details",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "dinner",
-            "in": "body",
-            "description": "Dinner details",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "instruction",
-            "in": "body",
-            "description": "Diet instructions",
-            "required": true,
-            "type": "string"
+            "name": "diet",
+            "schema": {
+              "$ref": "#/definitions/DietInput"
+            }
           }
         ],
         "responses": {
@@ -497,35 +443,22 @@
             "description": "Diet created/updated successfully"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Failed to create or edit diet"
           }
         }
       },
       "delete": {
-        "tags": [
-          "Diet"
-        ],
-        "summary": "Delete Diet",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Diet"],
+        "summary": "Delete a diet",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
         "parameters": [
           {
-            "name": "dietId",
             "in": "body",
-            "description": "ID of the diet to delete",
-            "required": true,
-            "type": "integer"
-          },
-          {
-            "name": "trainerEmail",
-            "in": "body",
-            "description": "Trainer's email",
-            "required": true,
-            "type": "string"
+            "name": "diet",
+            "schema": {
+              "$ref": "#/definitions/DeleteDietInput"
+            }
           }
         ],
         "responses": {
@@ -533,44 +466,24 @@
             "description": "Diet deleted successfully"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Failed to delete diet"
           }
         }
       }
     },
     "/assign-diet": {
       "post": {
-        "tags": [
-          "Diet"
-        ],
-        "summary": "Assign Diet to User",
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
+        "tags": ["Diet"],
+        "summary": "Assign a diet to a user",
+        "consumes": ["application/json"],
+        "produces": ["text/plain"],
         "parameters": [
           {
-            "name": "dietName",
             "in": "body",
-            "description": "Name of the diet to assign",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "trainerEmail",
-            "in": "body",
-            "description": "Trainer's email",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "clientEmail",
-            "in": "body",
-            "description": "Client's email",
-            "required": true,
-            "type": "string"
+            "name": "assignment",
+            "schema": {
+              "$ref": "#/definitions/AssignDietInput"
+            }
           }
         ],
         "responses": {
@@ -578,7 +491,7 @@
             "description": "Diet assigned to user successfully"
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Failed to assign diet to user"
           }
         }
       }
@@ -1762,6 +1675,60 @@
           "type": "string"
         }
       }
+    },
+    "DietInput": {
+      "type": "object",
+      "properties": {
+        "dietId": {
+          "type": "integer"
+        },
+        "trainerEmail": {
+          "type": "string"
+        },
+        "dietType": {
+          "type": "string"
+        },
+        "breakfast": {
+          "type": "string"
+        },
+        "lunch": {
+          "type": "string"
+        },
+        "dinner": {
+          "type": "string"
+        },
+        "instruction": {
+          "type": "string"
+        }
+      },
+      "required": ["trainerEmail", "dietType", "breakfast", "lunch", "dinner", "instruction"]
+    },
+    "DeleteDietInput": {
+      "type": "object",
+      "properties": {
+        "dietId": {
+          "type": "integer"
+        },
+        "trainerEmail": {
+          "type": "string"
+        }
+      },
+      "required": ["dietId", "trainerEmail"]
+    },
+    "AssignDietInput": {
+      "type": "object",
+      "properties": {
+        "dietName": {
+          "type": "string"
+        },
+        "trainerEmail": {
+          "type": "string"
+        },
+        "clientEmail": {
+          "type": "string"
+        }
+      },
+      "required": ["dietName", "trainerEmail", "clientEmail"]
     }
   }
 }
