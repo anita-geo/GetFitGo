@@ -1053,6 +1053,41 @@
         }
       }
     },
+    "/top-body-parts": {
+      "get": {
+        "tags": [
+          "Analytics"
+        ],
+        "summary": "Get top body parts",
+        "responses": {
+          "200": {
+            "description": "A list of top body parts",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "part_name": "Calf",
+                    "part_count": 20
+                  },
+                  {
+                    "part_name": "Abdominal",
+                    "part_count": 10
+                  }
+                ]
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "text/plain": {
+                "example": "Something went wrong"
+              }
+            }
+          }
+        }
+      }
+    },
     "/diet-type": {
       "get": {
         "tags": ["Diet"],

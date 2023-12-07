@@ -26,3 +26,26 @@ def get_client():
     finally:
         cur.close()
         connection.close()
+
+@app_analytics.route('/top-body-parts', methods=['GET'])
+def get_top_body_parts():
+    try:
+        connection = get_db()
+        cur = connection.cursor()
+        cur.callproc('GetTopBodyParts')
+        
+        data = cur.fetchall()
+        bodyParts = []
+        for bodyPart in data:
+            topBodyPart = {
+                "part_name": bodyPart[0],
+                "part_count": bodyPart[1],
+            }
+            bodyParts.append(topBodyPart)
+        return jsonify(bodyParts)
+    except Exception as e:
+        print(e)
+        return "Something went wrong", 500
+    finally:
+        cur.close()
+        connection.close()
