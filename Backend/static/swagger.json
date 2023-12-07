@@ -1052,6 +1052,32 @@
           }
         }
       }
+    },
+    "/diet-type": {
+      "get": {
+        "tags": ["Diet"],
+        "summary": "Retrieve Diet Types",
+        "responses": {
+          "200": {
+            "description": "A list of diet types",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "dietName": "Vegetarian",
+                    "dietDescription": "Plant-based diet without meat"
+                  },
+                  {
+                    "dietName": "Keto",
+                    "dietDescription": "Low-carb, high-fat diet"
+                  }
+                ]
+              }
+            }
+          }
+        },
+        "operationId": "getDietTypes"
+      }
     }
   },
   "definitions": {

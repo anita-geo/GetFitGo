@@ -125,3 +125,30 @@ def assign_diet():
     finally:
         cur.close()
         connection.close()
+
+@app_diet.route('/diet-type', methods=['GET'])
+def get_diet_type():
+    try:
+        connection = get_db()
+        cur = connection.cursor()
+        sql = 'SELECT * FROM diet_type'
+        cur.execute(sql)
+        
+        data = cur.fetchall() 
+        dietTypes = []
+        for diet_data in data:
+            dietType = {
+                "dietName": diet_data[0],
+                "dietDescription": diet_data[1],
+            }
+            dietTypes.append(diet_data)
+
+        return jsonify(dietTypes)
+    except pymysql.MySQLError as e:
+        print(e)
+    except Exception as e:
+        connection.rollback()
+        return "Something went wrong", 500
+    finally:
+        cur.close()
+        connection.close()

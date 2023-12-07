@@ -1,11 +1,3 @@
-# view assigned routine
-# add workout history
-# view assigned diet
-# delete workout history
-# view client activity
-# update client profile
-
-
 from flask import Blueprint, jsonify, request
 from db import get_db
 import pymysql
@@ -55,8 +47,8 @@ def get_client():
             "aboutMe": data[8],
             "level": data[9],
             "trainerEmail": data[10],
-            'bodyParts': [row['part_name'] for row in result_body_parts],
-            'equipments': [row['equipment'] for row in result_equipments],
+            'bodyParts': [row[0] for row in result_body_parts],
+            'equipments': [row[0] for row in result_equipments],
             'dietType': [row[1] for row in result_diet_type],
             'routines': [row[1] for row in result_routines],
         }
