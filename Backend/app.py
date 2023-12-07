@@ -1,6 +1,7 @@
 from flask import Flask, jsonify
 from flask_restful import Resource, Api
 from flask_swagger_ui import get_swaggerui_blueprint
+from flask_cors import CORS
 from routes.exercise import app_exercise
 from routes.login import app_login
 from routes.routine import app_routine
@@ -22,6 +23,7 @@ swagger_ui_blueprint = get_swaggerui_blueprint(
 )
 
 app = Flask(__name__)
+CORS(app)
 api = Api(app)
 app.register_blueprint(swagger_ui_blueprint, url_prefix=SWAGGER_URL)
 app.register_blueprint(app_exercise)
