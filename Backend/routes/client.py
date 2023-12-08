@@ -35,6 +35,11 @@ def get_client():
 
         result_diet_type = cur.fetchall()
 
+        if (len(result_diet_type) > 0):
+            result_diet_type = result_diet_type[0]
+        else:
+            result_diet_type = ''
+
         client = {
             "clientEmail": data[0],
             "firstName": data[1],
@@ -49,7 +54,7 @@ def get_client():
             "trainerEmail": data[10],
             'bodyParts': [row[0] for row in result_body_parts],
             'equipments': [row[0] for row in result_equipments],
-            'dietType': [row[1] for row in result_diet_type],
+            'dietType': result_diet_type,
             'routines': [row[1] for row in result_routines],
         }
         return jsonify(client)

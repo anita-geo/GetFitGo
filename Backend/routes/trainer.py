@@ -56,6 +56,7 @@ def request_trainer():
         connection = get_db()
         cur = connection.cursor()
         cur.callproc('CreateTrainingRequest',(_trainerEmail, _clientEmail,))
+        print("hi")
         
         # The create training request was successful
         if cur.rowcount > 0:
@@ -195,10 +196,8 @@ def update_trainer():
         connection = get_db()
         cur = connection.cursor()
         cur.callproc('InsertOrUpdateTrainer',(_firstName, _lastName, _gender, _state, _city, _mobileNumber, _email, _aboutMe))
-        if cur.rowcount > 0:
-            return "Trainer updated successfully"
-        else:
-            return "Failed to update trainer", 500
+        connection.commit()
+        return "Trainer updated successfully"
     except Exception as e:
         print(e)
         return "Something went wrong", 500

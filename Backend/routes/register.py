@@ -77,7 +77,7 @@ def register_client():
         _mobileNumber = _json.get('mobileNumber', None)
 
         _height = _json.get('height', None)
-        _weight = _json.get('height', None)
+        _weight = _json.get('weight', None)
         _bodyType = _json.get('bodyType', None)
 
         if (_weight is not None and _height is not None):
@@ -85,8 +85,8 @@ def register_client():
         else:
             _bmi = None
         
-        _targetWeight = _json.get('height', None)
-        _level = _json.get('height', None)
+        _targetWeight = _json.get('targetWeight', None)
+        _level = _json.get('level', None)
         _aboutMe = _json.get('aboutMe', None)
 
         if _username.strip() == "":
@@ -102,14 +102,16 @@ def register_client():
             return "First name is empty", 400
 
         connection = get_db()
-        cur = connection.cursor()
+
         connection.begin()
+        cur = connection.cursor()
         cur.callproc('CreateUser',(_username, _email, _password))
         
         # The create user was successful
         if cur.rowcount > 0:
-            cur.callproc('InsertOrUpdateClient',(_email, _firstName, _lastName, _gender,_streetNo,_streetName,_city,  _state, _mobileNumber, _height, _weight,_bodyType, _bmi,_targetWeight, _level, _aboutMe))
+            cur.callproc('InsertOrUpdateClient',(_email, _firstName, _lastName, _gender,_streetNo,_streetName,_city,  _state, _mobileNumber, _height, _weight,_bodyType, _bmi,_targetWeight, _aboutMe, _level))
             if cur.rowcount > 0:
+                connection.commit()
                 return "Client created successfully"
             else:
                 return "Failed to create client", 500
@@ -119,6 +121,5 @@ def register_client():
         print(e)
         return "Something went wrong", 500
     finally:
-        connection.commit()
         cur.close()
         connection.close()
